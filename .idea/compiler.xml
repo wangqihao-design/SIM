@@ -7,13 +7,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="sim-gateway" />
         <module name="sim-order" />
         <module name="sim" />
         <module name="sim-common" />
         <module name="sim-user" />
         <module name="sim-game" />
         <module name="sim-operator" />
+        <module name="sim-mine" />
         <module name="sim-production" />
+        <module name="sim-company" />
         <module name="renren-generator" />
       </profile>
     </annotationProcessing>
@@ -22,7 +25,11 @@
       <module name="renren-generator" target="1.8" />
       <module name="sim" target="17" />
       <module name="sim-common" target="17" />
+      <module name="sim-company" target="17" />
+      <module name="sim-company-inventory" target="17" />
       <module name="sim-game" target="17" />
+      <module name="sim-gateway" target="17" />
+      <module name="sim-mine" target="17" />
       <module name="sim-operator" target="17" />
       <module name="sim-order" target="17" />
       <module name="sim-production" target="17" />
@@ -35,7 +42,11 @@
       <module name="renren-generator" options="-parameters" />
       <module name="sim" options="-parameters" />
       <module name="sim-common" options="-parameters" />
+      <module name="sim-company" options="-parameters" />
+      <module name="sim-company-inventory" options="-parameters" />
       <module name="sim-game" options="-parameters" />
+      <module name="sim-gateway" options="-parameters" />
+      <module name="sim-mine" options="-parameters" />
       <module name="sim-operator" options="-parameters" />
       <module name="sim-order" options="-parameters" />
       <module name="sim-production" options="-parameters" />

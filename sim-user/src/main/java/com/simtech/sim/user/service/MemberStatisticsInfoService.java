@@ -3,7 +3,9 @@ package com.simtech.sim.user.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.simtech.sim.common.utils.PageUtils;
 import com.simtech.sim.user.entity.MemberStatisticsInfoEntity;
+import com.simtech.sim.user.entity.MemberTransferEntity;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 /**
@@ -16,5 +18,7 @@ import java.util.Map;
 public interface MemberStatisticsInfoService extends IService<MemberStatisticsInfoEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    String transferService(MemberTransferEntity payerTransferEntity);
 }
 

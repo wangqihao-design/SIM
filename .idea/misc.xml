@@ -12,6 +12,11 @@
         <option value="$PROJECT_DIR$/sim-game/pom.xml" />
         <option value="$PROJECT_DIR$/sim-operator/pom.xml" />
         <option value="$PROJECT_DIR$/sim-production/pom.xml" />
+        <option value="$PROJECT_DIR$/sim-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/sim-mine/pom.xml" />
+        <option value="$PROJECT_DIR$/sim-user-inventory/pom.xml" />
+        <option value="$PROJECT_DIR$/sim-company-inventory/pom.xml" />
+        <option value="$PROJECT_DIR$/sim-company/pom.xml" />
       </list>
     </option>
   </component>

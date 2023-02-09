@@ -1,6 +1,6 @@
 package com.simtech.sim.production.service.impl;
 
-import com.simtech.sim.production.equations.basicEquation;
+import com.simtech.sim.production.utils.equations.basicEquation;
 import com.simtech.sim.production.service.ProductionCalculation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

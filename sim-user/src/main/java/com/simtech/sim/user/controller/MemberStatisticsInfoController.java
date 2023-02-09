@@ -30,6 +30,8 @@ public class MemberStatisticsInfoController {
     @Autowired
     private MemberStatisticsInfoService memberStatisticsInfoService;
 
+
+    // TODO 生成排名的接口
     /**
      * 列表
      */
