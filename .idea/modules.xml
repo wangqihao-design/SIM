@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/renren-generator/renren-generator.iml" filepath="$PROJECT_DIR$/renren-generator/renren-generator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sim.iml" filepath="$PROJECT_DIR$/sim.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sim-common/sim-common.iml" filepath="$PROJECT_DIR$/sim-common/sim-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sim-operator/sim-operator.iml" filepath="$PROJECT_DIR$/sim-operator/sim-operator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sim-order/sim-order.iml" filepath="$PROJECT_DIR$/sim-order/sim-order.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sim-production/sim-production.iml" filepath="$PROJECT_DIR$/sim-production/sim-production.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sim-user/sim-user.iml" filepath="$PROJECT_DIR$/sim-user/sim-user.iml" />
+    </modules>
+  </component>
+</project>

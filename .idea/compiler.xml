@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="sim-order" />
+        <module name="sim" />
+        <module name="sim-common" />
+        <module name="sim-user" />
+        <module name="sim-game" />
+        <module name="sim-operator" />
+        <module name="sim-production" />
+        <module name="renren-generator" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="renren-fast" target="1.8" />
+      <module name="renren-generator" target="1.8" />
+      <module name="sim" target="17" />
+      <module name="sim-common" target="17" />
+      <module name="sim-game" target="17" />
+      <module name="sim-operator" target="17" />
+      <module name="sim-order" target="17" />
+      <module name="sim-production" target="17" />
+      <module name="sim-user" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="renren-fast" options="-parameters" />
+      <module name="renren-generator" options="-parameters" />
+      <module name="sim" options="-parameters" />
+      <module name="sim-common" options="-parameters" />
+      <module name="sim-game" options="-parameters" />
+      <module name="sim-operator" options="-parameters" />
+      <module name="sim-order" options="-parameters" />
+      <module name="sim-production" options="-parameters" />
+      <module name="sim-user" options="-parameters" />
+    </option>
+  </component>
+</project>
