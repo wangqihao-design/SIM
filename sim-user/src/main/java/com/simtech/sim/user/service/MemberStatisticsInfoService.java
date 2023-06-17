@@ -2,6 +2,7 @@ package com.simtech.sim.user.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.simtech.sim.common.utils.PageUtils;
+import com.simtech.sim.common.utils.R;
 import com.simtech.sim.user.entity.MemberStatisticsInfoEntity;
 import com.simtech.sim.user.entity.MemberTransferEntity;
 
@@ -19,6 +20,5 @@ public interface MemberStatisticsInfoService extends IService<MemberStatisticsIn
 
     PageUtils queryPage(Map<String, Object> params);
 
-    String transferService(MemberTransferEntity payerTransferEntity);
+    R transferService(MemberTransferEntity payerTransferEntity);
 }
-

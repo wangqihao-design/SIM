@@ -2,16 +2,27 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/renren-generator/renren-generator.iml" filepath="$PROJECT_DIR$/renren-generator/renren-generator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/quartz-cluster/main-node/main-node.iml" filepath="$PROJECT_DIR$/quartz-cluster/main-node/main-node.iml" />
+      <module fileurl="file://$PROJECT_DIR$/quartz-cluster/quartz-cluster.iml" filepath="$PROJECT_DIR$/quartz-cluster/quartz-cluster.iml" />
+      <module fileurl="file://$PROJECT_DIR$/quartz-cluster/quartz-cluster-common/quartz-cluster-common.iml" filepath="$PROJECT_DIR$/quartz-cluster/quartz-cluster-common/quartz-cluster-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/renren-security/renren-admin/renren-admin.iml" filepath="$PROJECT_DIR$/renren-security/renren-admin/renren-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/renren-security/renren-api/renren-api.iml" filepath="$PROJECT_DIR$/renren-security/renren-api/renren-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/renren-security/renren-common/renren-common.iml" filepath="$PROJECT_DIR$/renren-security/renren-common/renren-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/renren-security/renren-dynamic-datasource/renren-dynamic-datasource.iml" filepath="$PROJECT_DIR$/renren-security/renren-dynamic-datasource/renren-dynamic-datasource.iml" />
+      <module fileurl="file://$PROJECT_DIR$/renren-security/renren-generator/renren-generator.iml" filepath="$PROJECT_DIR$/renren-security/renren-generator/renren-generator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/renren-security/renren-security.iml" filepath="$PROJECT_DIR$/renren-security/renren-security.iml" />
       <module fileurl="file://$PROJECT_DIR$/sim.iml" filepath="$PROJECT_DIR$/sim.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sim-backpack/sim-backpack.iml" filepath="$PROJECT_DIR$/sim-backpack/sim-backpack.iml" />
       <module fileurl="file://$PROJECT_DIR$/sim-common/sim-common.iml" filepath="$PROJECT_DIR$/sim-common/sim-common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sim-company/sim-company.iml" filepath="$PROJECT_DIR$/sim-company/sim-company.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sim-dataproxy/sim-dataproxy.iml" filepath="$PROJECT_DIR$/sim-dataproxy/sim-dataproxy.iml" />
       <module fileurl="file://$PROJECT_DIR$/sim-gateway/sim-gateway.iml" filepath="$PROJECT_DIR$/sim-gateway/sim-gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/sim-mine/sim-mine.iml" filepath="$PROJECT_DIR$/sim-mine/sim-mine.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sim-operator/sim-operator.iml" filepath="$PROJECT_DIR$/sim-operator/sim-operator.iml" />
       <module fileurl="file://$PROJECT_DIR$/sim-order/sim-order.iml" filepath="$PROJECT_DIR$/sim-order/sim-order.iml" />
       <module fileurl="file://$PROJECT_DIR$/sim-production/sim-production.iml" filepath="$PROJECT_DIR$/sim-production/sim-production.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sim-technology/sim-technology.iml" filepath="$PROJECT_DIR$/sim-technology/sim-technology.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sim-trade/sim-trade.iml" filepath="$PROJECT_DIR$/sim-trade/sim-trade.iml" />
       <module fileurl="file://$PROJECT_DIR$/sim-user/sim-user.iml" filepath="$PROJECT_DIR$/sim-user/sim-user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/quartz-cluster/working-nodes/working-nodes.iml" filepath="$PROJECT_DIR$/quartz-cluster/working-nodes/working-nodes.iml" />
     </modules>
   </component>
 </project>

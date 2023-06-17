@@ -1,29 +1,30 @@
 <template>
   <el-dialog
-    :title="!dataForm.orderId ? '新增' : '修改'"
-    :close-on-click-modal="false"
-    :visible.sync="visible">
-    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-    <el-form-item label="price of the order" prop="orderPrice">
-      <el-input v-model="dataForm.orderPrice" placeholder="price of the order"></el-input>
-    </el-form-item>
-    <el-form-item label="buyer's id" prop="receiverId">
-      <el-input v-model="dataForm.receiverId" placeholder="buyer's id"></el-input>
-    </el-form-item>
-    <el-form-item label="seller's id" prop="producerId">
-      <el-input v-model="dataForm.producerId" placeholder="seller's id"></el-input>
-    </el-form-item>
-    <el-form-item label="violation date" prop="vioDate">
-      <el-input v-model="dataForm.vioDate" placeholder="violation date"></el-input>
-    </el-form-item>
-    <el-form-item label="violation cost
+      :title="!dataForm.orderId ? '新增' : '修改'"
+      :close-on-click-modal="false"
+      :visible.sync="visible">
+    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()"
+             label-width="80px">
+      <el-form-item label="price of the order" prop="orderPrice">
+        <el-input v-model="dataForm.orderPrice" placeholder="price of the order"></el-input>
+      </el-form-item>
+      <el-form-item label="buyer's id" prop="receiverId">
+        <el-input v-model="dataForm.receiverId" placeholder="buyer's id"></el-input>
+      </el-form-item>
+      <el-form-item label="seller's id" prop="producerId">
+        <el-input v-model="dataForm.producerId" placeholder="seller's id"></el-input>
+      </el-form-item>
+      <el-form-item label="violation date" prop="vioDate">
+        <el-input v-model="dataForm.vioDate" placeholder="violation date"></el-input>
+      </el-form-item>
+      <el-form-item label="violation cost
 violation cost" prop="vioMoney">
-      <el-input v-model="dataForm.vioMoney" placeholder="violation cost
+        <el-input v-model="dataForm.vioMoney" placeholder="violation cost
 violation cost"></el-input>
-    </el-form-item>
-    <el-form-item label="notes" prop="orderNote">
-      <el-input v-model="dataForm.orderNote" placeholder="notes"></el-input>
-    </el-form-item>
+      </el-form-item>
+      <el-form-item label="notes" prop="orderNote">
+        <el-input v-model="dataForm.orderNote" placeholder="notes"></el-input>
+      </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="visible = false">取消</el-button>
@@ -33,44 +34,46 @@ violation cost"></el-input>
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        visible: false,
-        dataForm: {
-          orderId: 0,
-          orderPrice: '',
-          receiverId: '',
-          producerId: '',
-          vioDate: '',
-          vioMoney: '',
-          orderNote: ''
-        },
-        dataRule: {
-          orderPrice: [
-            { required: true, message: 'price of the order不能为空', trigger: 'blur' }
-          ],
-          receiverId: [
-            { required: true, message: 'buyer's id不能为空', trigger: 'blur' }
-          ],
-          producerId: [
-            { required: true, message: 'seller's id不能为空', trigger: 'blur' }
-          ],
-          vioDate: [
-            { required: true, message: 'violation date不能为空', trigger: 'blur' }
-          ],
-          vioMoney: [
-            { required: true, message: 'violation cost
-violation cost不能为空', trigger: 'blur' }
-          ],
-          orderNote: [
-            { required: true, message: 'notes不能为空', trigger: 'blur' }
-          ]
-        }
+export default {
+  data() {
+    return {
+      visible: false,
+      dataForm: {
+        orderId: 0,
+        orderPrice: '',
+        receiverId: '',
+        producerId: '',
+        vioDate: '',
+        vioMoney: '',
+        orderNote: ''
+      },
+      dataRule: {
+        orderPrice: [
+          {required: true, message: 'price of the order不能为空', trigger: 'blur'}
+        ],
+        receiverId: [
+          {required: true, message: 'buyer's id不能为空', trigger: 'blur' }
+        ],
+        producerId: [
+          {required: true, message: 'seller's id不能为空', trigger: 'blur' }
+        ],
+        vioDate: [
+          {required: true, message: 'violation date不能为空', trigger: 'blur'}
+        ],
+        vioMoney: [
+          {
+            required: true, message: 'violation cost
+            violation cost不能为空', trigger: 'blur' }
+        ],
+        orderNote: [
+          {required: true, message: 'notes不能为空', trigger: 'blur'}
+        ]
       }
-    },
+    }
+  },
     methods: {
-      init (id) {
+      init(id)
+      {
         this.dataForm.orderId = id || 0
         this.visible = true
         this.$nextTick(() => {
@@ -92,9 +95,11 @@ violation cost不能为空', trigger: 'blur' }
             })
           }
         })
-      },
+      }
+    ,
       // 表单提交
-      dataFormSubmit () {
+      dataFormSubmit()
+      {
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             this.$http({

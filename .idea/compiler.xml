@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+    <option name="BUILD_PROCESS_ADDITIONAL_VM_OPTIONS" value="-Djps.track.ap.dependencies=false" />
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
@@ -9,48 +10,84 @@
         <outputRelativeToContentRoot value="true" />
         <module name="sim-gateway" />
         <module name="sim-order" />
-        <module name="sim" />
         <module name="sim-common" />
         <module name="sim-user" />
         <module name="sim-game" />
-        <module name="sim-operator" />
+        <module name="sim-backpack" />
+        <module name="sim-dataproxy" />
         <module name="sim-mine" />
-        <module name="sim-production" />
-        <module name="sim-company" />
+        <module name="quartz-cluster" />
+        <module name="sim-trade" />
+        <module name="working-nodes" />
         <module name="renren-generator" />
+        <module name="renren-dynamic-datasource" />
+        <module name="renren-admin" />
+        <module name="main-node" />
+        <module name="renren-api" />
+        <module name="sim" />
+        <module name="renren-common" />
+        <module name="sim-production" />
+        <module name="quartz-cluster-common" />
+        <module name="sim-technology" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="renren-fast" target="1.8" />
+      <module name="main-node" target="17" />
+      <module name="quartz-cluster" target="17" />
+      <module name="quartz-cluster-common" target="17" />
+      <module name="renren-admin" target="1.8" />
+      <module name="renren-api" target="1.8" />
+      <module name="renren-common" target="1.8" />
+      <module name="renren-dynamic-datasource" target="1.8" />
       <module name="renren-generator" target="1.8" />
+      <module name="renren-security" target="1.8" />
       <module name="sim" target="17" />
+      <module name="sim-backpack" target="17" />
+      <module name="sim-backpack (1)" target="17" />
       <module name="sim-common" target="17" />
       <module name="sim-company" target="17" />
-      <module name="sim-company-inventory" target="17" />
-      <module name="sim-game" target="17" />
+      <module name="sim-dataproxy" target="17" />
       <module name="sim-gateway" target="17" />
+      <module name="sim-geography" target="17" />
       <module name="sim-mine" target="17" />
-      <module name="sim-operator" target="17" />
       <module name="sim-order" target="17" />
       <module name="sim-production" target="17" />
+      <module name="sim-quartz-cluster" target="17" />
+      <module name="sim-technology" target="17" />
+      <module name="sim-trade" target="17" />
       <module name="sim-user" target="17" />
+      <module name="working-node" target="17" />
+      <module name="working-nodes" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_STRING" value="--add-opens java.base/java.lang=ALL-UNNAMED " />
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="renren-fast" options="-parameters" />
+      <module name="main-node" options="-parameters" />
+      <module name="quartz-cluster" options="-parameters" />
+      <module name="quartz-cluster-common" options="-parameters" />
+      <module name="renren-admin" options="-parameters" />
+      <module name="renren-api" options="-parameters" />
+      <module name="renren-common" options="-parameters" />
+      <module name="renren-dynamic-datasource" options="-parameters" />
       <module name="renren-generator" options="-parameters" />
       <module name="sim" options="-parameters" />
+      <module name="sim-backpack" options="-parameters" />
+      <module name="sim-backpack (1)" options="-parameters" />
       <module name="sim-common" options="-parameters" />
       <module name="sim-company" options="-parameters" />
-      <module name="sim-company-inventory" options="-parameters" />
-      <module name="sim-game" options="-parameters" />
+      <module name="sim-dataproxy" options="-parameters" />
       <module name="sim-gateway" options="-parameters" />
+      <module name="sim-geography" options="-parameters" />
       <module name="sim-mine" options="-parameters" />
-      <module name="sim-operator" options="-parameters" />
       <module name="sim-order" options="-parameters" />
       <module name="sim-production" options="-parameters" />
+      <module name="sim-quartz-cluster" options="-parameters" />
+      <module name="sim-technology" options="-parameters" />
+      <module name="sim-trade" options="-parameters" />
       <module name="sim-user" options="-parameters" />
+      <module name="working-node" options="-parameters" />
+      <module name="working-nodes" options="-parameters" />
     </option>
   </component>
 </project>

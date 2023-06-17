@@ -3,7 +3,7 @@
 
 <mapper namespace="com.simtech.sim.order.dao.OrderinfoDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.simtech.sim.order.entity.OrderinfoEntity" id="orderinfoMap">
         <result property="orderId" column="order_id"/>
         <result property="orderPrice" column="order_price"/>

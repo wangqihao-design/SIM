@@ -3,7 +3,7 @@
 
 <mapper namespace="com.simtech.sim.mine.dao.MmsMineDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.simtech.sim.mine.entity.MmsMineEntity" id="mmsMineMap">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
@@ -12,6 +12,8 @@
         <result property="productid3" column="productid3"/>
         <result property="cost" column="cost"/>
         <result property="location" column="location"/>
+        <result property="ownerId" column="ownerId"/>
+
     </resultMap>
 
 

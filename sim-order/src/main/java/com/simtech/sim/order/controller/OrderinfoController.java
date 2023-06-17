@@ -16,10 +16,7 @@ import com.simtech.sim.common.utils.PageUtils;
 import com.simtech.sim.common.utils.R;
 
 
-
 /**
- * 
- *
  * @author CharlieWang
  * @email wan2901@dcds.edu
  * @date 2023-02-08 16:43:14
@@ -35,7 +32,7 @@ public class OrderinfoController {
      */
     @RequestMapping("/list")
     //@RequiresPermissions("order:orderinfo:list")
-    public R list(@RequestParam Map<String, Object> params){
+    public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = orderinfoService.queryPage(params);
 
         return R.ok().put("page", page);
@@ -47,8 +44,8 @@ public class OrderinfoController {
      */
     @RequestMapping("/info/{orderId}")
     //@RequiresPermissions("order:orderinfo:info")
-    public R info(@PathVariable("orderId") Integer orderId){
-		OrderinfoEntity orderinfo = orderinfoService.getById(orderId);
+    public R info(@PathVariable("orderId") Integer orderId) {
+        OrderinfoEntity orderinfo = orderinfoService.getById(orderId);
 
         return R.ok().put("orderinfo", orderinfo);
     }
@@ -58,8 +55,8 @@ public class OrderinfoController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("order:orderinfo:save")
-    public R save(@RequestBody OrderinfoEntity orderinfo){
-		orderinfoService.save(orderinfo);
+    public R save(@RequestBody OrderinfoEntity orderinfo) {
+        orderinfoService.save(orderinfo);
 
         return R.ok();
     }
@@ -69,8 +66,8 @@ public class OrderinfoController {
      */
     @RequestMapping("/update")
     //@RequiresPermissions("order:orderinfo:update")
-    public R update(@RequestBody OrderinfoEntity orderinfo){
-		orderinfoService.updateById(orderinfo);
+    public R update(@RequestBody OrderinfoEntity orderinfo) {
+        orderinfoService.updateById(orderinfo);
 
         return R.ok();
     }
@@ -80,8 +77,8 @@ public class OrderinfoController {
      */
     @RequestMapping("/delete")
     //@RequiresPermissions("order:orderinfo:delete")
-    public R delete(@RequestBody Integer[] orderIds){
-		orderinfoService.removeByIds(Arrays.asList(orderIds));
+    public R delete(@RequestBody Integer[] orderIds) {
+        orderinfoService.removeByIds(Arrays.asList(orderIds));
 
         return R.ok();
     }
