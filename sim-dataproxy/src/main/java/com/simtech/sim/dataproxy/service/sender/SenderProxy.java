@@ -3,7 +3,7 @@ package com.simtech.sim.dataproxy.service.sender;
 
 import com.simtech.sim.common.utils.Result;
 
-public interface SenderProxy<T, M> {
+public interface SenderProxy<M> {
 
-    Result<T> messageSender(M message) throws Exception;
+    void messageSender(M message) throws Exception;
 }

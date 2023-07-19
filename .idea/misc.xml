@@ -14,9 +14,7 @@
         <option value="$PROJECT_DIR$/sim-trade/pom.xml" />
         <option value="$PROJECT_DIR$/renren-security/pom.xml" />
         <option value="$PROJECT_DIR$/sim-mine/pom.xml" />
-        <option value="$PROJECT_DIR$/sim-order/pom.xml" />
         <option value="$PROJECT_DIR$/dataproxy/pom.xml" />
-        <option value="$PROJECT_DIR$/sim-dataproxy/pom.xml" />
         <option value="$PROJECT_DIR$/sim-technology/pom.xml" />
         <option value="$PROJECT_DIR$/sim-backpack/pom.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
@@ -24,9 +22,13 @@
         <option value="$PROJECT_DIR$/sim-quartz-cluster/pom.xml" />
         <option value="$PROJECT_DIR$/sim-quartz-cluster/working-node/pom.xml" />
         <option value="$PROJECT_DIR$/quartz-cluster/pom.xml" />
-        <option value="$PROJECT_DIR$/quartz-cluster/main-node/pom.xml" />
         <option value="$PROJECT_DIR$/quartz-cluster/working-nodes/pom.xml" />
         <option value="$PROJECT_DIR$/quartz-cluster/quartz-cluster-common/pom.xml" />
+        <option value="$PROJECT_DIR$/quartz-cluster/main-node/pom.xml" />
+        <option value="$PROJECT_DIR$/sim-algorithm/main-node/pom.xml" />
+        <option value="$PROJECT_DIR$/sim-algorithm/calcfileserver/pom.xml" />
+        <option value="$PROJECT_DIR$/sim-algorithm/calc-file-server/pom.xml" />
+        <option value="$PROJECT_DIR$/sim-dataproxy/pom.xml" />
       </list>
     </option>
   </component>

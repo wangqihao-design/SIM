@@ -17,9 +17,9 @@ public class RabbitMQConnectionPool {
     public RabbitMQConnectionPool() {
         ConnectionFactory connectionFactory = new ConnectionFactory();
         connectionFactory.setHost("localhost");
-        connectionFactory.setPort(5674);
-        connectionFactory.setUsername("admin");
-        connectionFactory.setPassword("admin");
+        connectionFactory.setPort(5672);
+        connectionFactory.setUsername("guest");
+        connectionFactory.setPassword("guest");
         GenericObjectPoolConfig<Connection> poolConfig = new GenericObjectPoolConfig<>();
         poolConfig.setMaxTotal(20);
         poolConfig.setMinIdle(5);

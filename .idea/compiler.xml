@@ -9,7 +9,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="sim-gateway" />
-        <module name="sim-order" />
         <module name="sim-common" />
         <module name="sim-user" />
         <module name="sim-game" />
@@ -19,10 +18,11 @@
         <module name="quartz-cluster" />
         <module name="sim-trade" />
         <module name="working-nodes" />
-        <module name="renren-generator" />
+        <module name="calc-file-server" />
         <module name="renren-dynamic-datasource" />
-        <module name="renren-admin" />
+        <module name="renren-generator" />
         <module name="main-node" />
+        <module name="renren-admin" />
         <module name="renren-api" />
         <module name="sim" />
         <module name="renren-common" />
@@ -32,6 +32,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="calc-file-server" target="17" />
+      <module name="calc-main-node" target="17" />
+      <module name="calc-template-server" target="17" />
       <module name="main-node" target="17" />
       <module name="quartz-cluster" target="17" />
       <module name="quartz-cluster-common" target="17" />
@@ -63,6 +66,9 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_STRING" value="--add-opens java.base/java.lang=ALL-UNNAMED " />
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="calc-file-server" options="-parameters" />
+      <module name="calc-main-node" options="-parameters" />
+      <module name="calc-template-server" options="-parameters" />
       <module name="main-node" options="-parameters" />
       <module name="quartz-cluster" options="-parameters" />
       <module name="quartz-cluster-common" options="-parameters" />

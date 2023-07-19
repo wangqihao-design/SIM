@@ -1,6 +1,8 @@
 package com.simtech.sim.dataproxy.service.sender.senderImpl;
 
 
+import com.google.gson.Gson;
+import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.simtech.sim.common.utils.Result;
@@ -9,21 +11,34 @@ import com.simtech.sim.dataproxy.service.sender.SenderProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
+
 @Service
-public class SenderProxyImpl<T, M> implements SenderProxy<T, M> {
+public class SenderProxyImpl<M> implements SenderProxy<M> {
 
     @Autowired
     private RabbitMQConnectionPool connectionPool;
 
+
     @Override
-    public Result<T> messageSender(M message) throws Exception {
+    public void messageSender(M message) throws Exception {
+        String exchangeName = "quartz-cluster.sender";
+        String routingKey = "sender";
+        AMQP.BasicProperties props = new AMQP.BasicProperties.Builder()
+                .contentType("application/json")
+                .build();
 
         Connection connection = connectionPool.getConnection();
 
         Channel channel = connection.createChannel();
 
+        channel.exchangeDeclare(exchangeName, "direct", true);
 
+        channel.basicPublish(exchangeName, routingKey, props, new Gson().toJson(message).getBytes(StandardCharsets.UTF_8));
 
-        return null;
+        channel.close();
+
+        connectionPool.releaseConnection(connection);
     }
+
 }

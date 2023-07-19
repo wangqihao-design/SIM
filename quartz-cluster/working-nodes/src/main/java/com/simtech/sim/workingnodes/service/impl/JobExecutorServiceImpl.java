@@ -1,46 +1,90 @@
 package com.simtech.sim.workingnodes.service.impl;
 
+import com.google.gson.Gson;
+import com.rabbitmq.client.AMQP;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.simtech.sim.workingnodes.WorkingNodesApplication;
+import com.simtech.sim.workingnodes.config.mq.RabbitMQConnectionPool;
+import com.simtech.sim.workingnodes.entity.JobInfoEntity;
 import com.simtech.sim.workingnodes.service.JobExecutorService;
+import lombok.SneakyThrows;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+
+import java.nio.charset.StandardCharsets;
+
+import static org.slf4j.LoggerFactory.getLogger;
 
 @Service
 public class JobExecutorServiceImpl implements Job, JobExecutorService {
 
     @Autowired
-    private ApplicationContext applicationContext;
+    private RabbitMQConnectionPool rabbitMQConnectionPool;
 
+    private static Logger log = getLogger(WorkingNodesApplication.class);
 
+    private final Scheduler scheduler;
+
+    private final Gson gson = new Gson();
+
+    public JobExecutorServiceImpl() throws Exception {
+
+        scheduler = StdSchedulerFactory.getDefaultScheduler();
+        scheduler.start();
+    }
+
+    @SneakyThrows
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
 
+        String exchange = "quartz-cluster.receiver";
+        String queue = "receiver";
+        String routingKey = "receiver";
+
+        AMQP.BasicProperties props = new AMQP.BasicProperties.Builder()
+                .contentType("application/json")
+                .build();
+
+        Connection connection = rabbitMQConnectionPool.getConnection();
+
+        Channel channel = connection.createChannel();
+
+        channel.exchangeDeclare(exchange, "direct", true);
+
+        Object message = jobExecutionContext.getJobDetail().getJobDataMap().get("message");
+        log.info(gson.toJson(message));
+
+
+        channel.basicPublish(exchange, routingKey, props, gson.toJson(message).getBytes(StandardCharsets.UTF_8));
+
+        channel.close();
+
+        rabbitMQConnectionPool.releaseConnection(connection);
     }
 
 
-    public void jobExecutionHelper(String period, String name) throws SchedulerException {
 
+    public void jobExecutionHelper(JobInfoEntity jobInfo) throws SchedulerException {
         JobDataMap map = new JobDataMap();
+
+        map.put("message", jobInfo);
+
 
 
         JobDetail job = JobBuilder.newJob(JobExecutorServiceImpl.class)
                 .setJobData(map).build();
 
-        // initialize scheduler and the trigger
-        // 获取scheduler对象
-        Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
-
         Trigger trigger = TriggerBuilder.newTrigger()
-                .withIdentity(name, "production")
+                .withIdentity(jobInfo.getJobName(), jobInfo.getGroup())
                 .startNow()
-                .withSchedule(CronScheduleBuilder.cronSchedule(period))
+                .withSchedule(CronScheduleBuilder.cronSchedule(jobInfo.getPeriod()))
                 .build();
 
         scheduler.scheduleJob(job, trigger);
-
-        scheduler.start();
     }
-
 }

@@ -1,6 +1,6 @@
 package com.simtech.sim.mainnode;
 
-import com.simtech.sim.mainnode.service.impl.ServiceDiscoveryImpl;
+import com.simtech.sim.mainnode.service.JobAcceptor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,11 +13,10 @@ class MainNodeApplicationTests {
     }
 
     @Autowired
-    private ServiceDiscoveryImpl discovery;
+    private JobAcceptor jobAcceptor;
 
     @Test
-    void discovery(){
-        discovery.availableClient();
+    void test(){
     }
 
 }
