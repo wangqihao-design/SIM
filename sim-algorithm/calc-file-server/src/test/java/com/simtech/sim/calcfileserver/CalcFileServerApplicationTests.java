@@ -1,12 +1,9 @@
 package com.simtech.sim.calcfileserver;
 
-import com.simtech.sim.calcfileserver.controller.FileController;
-import com.simtech.sim.calcfileserver.service.FileReader;
+import com.simtech.sim.calcfileserver.util.MinioUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.io.IOException;
 
 @SpringBootTest
 class CalcFileServerApplicationTests {
@@ -16,11 +13,11 @@ class CalcFileServerApplicationTests {
     }
 
     @Autowired
-    private FileController fileController;
+    private MinioUtils minioUtils;
 
     @Test
-    void reader() throws IOException {
-        fileController.retrieve("test.py");
+    public void sometest(){
+        minioUtils.getObject("researchset", "test");
     }
 
 }

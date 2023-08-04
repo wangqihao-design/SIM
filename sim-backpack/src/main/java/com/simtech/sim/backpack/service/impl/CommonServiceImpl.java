@@ -2,6 +2,7 @@ package com.simtech.sim.backpack.service.impl;
 
 import com.simtech.sim.backpack.entity.CommonEntity;
 import com.simtech.sim.backpack.entity.InventoryEntity;
+import com.simtech.sim.backpack.entity.ProductEntity;
 import com.simtech.sim.backpack.entity.TeamEntity;
 import com.simtech.sim.backpack.repo.TeamRepository;
 import com.simtech.sim.backpack.service.CommonService;
@@ -107,55 +108,35 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public String removeInventoryToTeam(String id, InventoryEntity inventory) {
-        Optional<TeamEntity> team = teamRepository.findById(id);
-        if (team.isPresent()) {
+        Optional<TeamEntity> optionalTeam = teamRepository.findById(id);
 
-            InventoryEntity inventoryEntity = team.get().getInventory();
-            inventoryEntity.setA(inventoryEntity.getA() - inventory.getA());
-            inventoryEntity.setB(inventoryEntity.getB() - inventory.getB());
-            inventoryEntity.setC(inventoryEntity.getC() - inventory.getC());
+        if (optionalTeam.isPresent()) {
+            TeamEntity team = optionalTeam.get();
+            InventoryEntity storedInventory = team.getInventory();
 
-            inventoryEntity.setMoney(inventoryEntity.getMoney() - inventory.getMoney());
+            // Update the inventory by subtracting the given inventory
+            storedInventory = sourceEditor(storedInventory, -inventory.getMoney(), -inventory.getA(), -inventory.getB(), -inventory.getC());
 
-            List<Object[]> localProduct = team.get().getInventory().getProducts();
-
-            if(inventory.getProducts() == null){
-                inventory.setProducts(new ArrayList<>());
-            }
-            List<Object[]> removeProduct = inventory.getProducts();
-
-
-            for (Object[] removeItem : removeProduct) {
-                String removeItemId = (String) removeItem[0];
-                int removeItemQuantity = (int) removeItem[2];
-
-                boolean found = false;
-                for (Object[] localItem : localProduct) {
-                    String localItemId = (String) localItem[0];
-                    int localItemQuantity = (int) localItem[2];
-
-                    if (localItemId.equals(removeItemId)) {
-                        found = true;
-                        if (localItemQuantity < removeItemQuantity) {
-                            return "没有足够的物品";
-                        }
-                        localItem[2] = localItemQuantity - removeItemQuantity;
-                        break;
+            // Update product quantities in the inventory
+            for (ProductEntity inventoryProduct : inventory.getProducts()) {
+                for (ProductEntity storedProduct : storedInventory.getProducts()) {
+                    if (inventoryProduct.getName().equals(storedProduct.getName())) {
+                        int storedProductNumber = storedProduct.getNumber() - inventoryProduct.getNumber();
+                        storedProduct.setNumber(storedProductNumber);
                     }
                 }
-
-                if (!found) {
-                    return "物品不存在";
-                }
             }
 
+            // Save the updated inventory
+            team.setInventory(storedInventory);
+            teamRepository.save(team);
 
-            teamRepository.save(team.get());
             return "ok";
         } else {
             return "The request Team " + id + " Not Found";
         }
     }
+
 
 
     @Override
@@ -171,45 +152,40 @@ public class CommonServiceImpl implements CommonService {
         }
     }
 
+
+
     @Override
     @Transactional
     public String addInventoryToTeam(String teamId, InventoryEntity inventory) {
-        Optional<TeamEntity> team = teamRepository.findById(teamId);
-        if (team.isPresent()) {
-            InventoryEntity thisInventory = team.get().getInventory();
-            thisInventory.setA(inventory.getA() + thisInventory.getA());
-            thisInventory.setB(inventory.getB() + thisInventory.getB());
-            thisInventory.setC(inventory.getC() + thisInventory.getC());
-            thisInventory.setMoney(inventory.getMoney() + thisInventory.getMoney());
+        Optional<TeamEntity> optionalTeam = teamRepository.findById(teamId);
 
-            List<Object[]> thisProduct = thisInventory.getProducts();
+        if (optionalTeam.isPresent()) {
+            TeamEntity team = optionalTeam.get();
+            InventoryEntity thisInventory = team.getInventory();
 
-            if(inventory.getProducts() == null){
-                inventory.setProducts(new ArrayList<>());
+
+            thisInventory = sourceEditor(thisInventory, thisInventory.getMoney(), thisInventory.getA(), thisInventory.getB(), thisInventory.getC());
+            List<ProductEntity> thisProducts = thisInventory.getProducts();
+            List<ProductEntity> incomingProducts = inventory.getProducts();
+
+            if (incomingProducts != null) {
+                for (ProductEntity incomingProduct : incomingProducts) {
+                    ProductEntity foundProduct = thisProducts.stream()
+                            .filter(product -> product.getId().equals(incomingProduct.getId()))
+                            .findFirst()
+                            .orElse(null);
+
+                    if (foundProduct != null) {
+                        int existingQuantity = foundProduct.getNumber();
+                        foundProduct.setNumber(existingQuantity + incomingProduct.getNumber());
+                    } else {
+                        thisProducts.add(incomingProduct);
+                    }
+                }
             }
 
-            List<Object[]> result = inventory.getProducts().stream()
-                    .map(item -> {
-                        String id = (String) item[0];
-                        String name = (String) item[1];
-                        int quantity = (int) item[2];
-
-                        Optional<Object[]> foundItem = thisProduct.stream()
-                                .filter(obj -> ((String) obj[0]).equals(id))
-                                .findFirst();
-
-                        if (foundItem.isPresent()) {
-                            int existingQuantity = (int) foundItem.get()[2];
-                            foundItem.get()[2] = existingQuantity + quantity;
-                            return foundItem.get();
-                        } else {
-                            return new Object[]{id, name, quantity};
-                        }
-                    })
-                    .collect(Collectors.toList());
-
-
-            teamRepository.save(team.get());
+            team.setInventory(thisInventory);
+            teamRepository.save(team);
             return "ok";
         } else {
             return "The request Team " + teamId + " Not Found";
@@ -235,51 +211,65 @@ public class CommonServiceImpl implements CommonService {
         }
     }
 
+
+
     @Override
     @Transactional
     public String removeInventoryFromTeam(String id, InventoryEntity inventory) {
-        Optional<TeamEntity> team = teamRepository.findById(id);
-        if(team.isPresent()){
-            InventoryEntity localProducts = team.get().getInventory();
+        Optional<TeamEntity> optionalTeam = teamRepository.findById(id);
 
-            if(!(localProducts.getA() < inventory.getA() || localProducts.getB() < inventory.getB() || localProducts.getC() < inventory.getC() || localProducts.getMoney() < inventory.getMoney())){
+        if (optionalTeam.isPresent()) {
+            TeamEntity team = optionalTeam.get();
+            InventoryEntity localProducts = team.getInventory();
+
+            if (localProducts.getA() >= inventory.getA() && localProducts.getB() >= inventory.getB()
+                    && localProducts.getC() >= inventory.getC() && localProducts.getMoney() >= inventory.getMoney()) {
                 localProducts.setA(localProducts.getA() - inventory.getA());
                 localProducts.setB(localProducts.getB() - inventory.getB());
                 localProducts.setC(localProducts.getC() - inventory.getC());
                 localProducts.setMoney(localProducts.getMoney() - inventory.getMoney());
-            }
-            else{
+
+                List<ProductEntity> localInventory = localProducts.getProducts();
+                boolean enoughItems = inventory.getProducts().stream().allMatch(itemToReduce ->
+                        localInventory.stream().anyMatch(availableItem ->
+                                availableItem.getId().equals(itemToReduce.getId()) &&
+                                        availableItem.getNumber() >= itemToReduce.getNumber()
+                        )
+                );
+
+                if (enoughItems) {
+                    inventory.getProducts().forEach(itemToReduce ->
+                            localInventory.stream().filter(availableItem ->
+                                    availableItem.getId().equals(itemToReduce.getId())
+                            ).findFirst().ifPresent(availableItem -> {
+                                int quantityToReduce = itemToReduce.getNumber();
+                                availableItem.setNumber(availableItem.getNumber() - quantityToReduce);
+                            })
+                    );
+
+                    team.setInventory(localProducts);
+                    teamRepository.save(team);
+                    return "OK";
+                } else {
+                    return "Not Enough Product";
+                }
+            } else {
                 return "Not Enough Source";
             }
-
-            List<Object[]> localInventory = team.get().getInventory().getProducts();
-            boolean enoughItems = inventory.getProducts().stream().allMatch(itemToReduce ->
-                    localInventory.stream().anyMatch(availableItem ->
-                            availableItem[0].equals(itemToReduce[0]) &&
-                                    (int) availableItem[2] >= (int) itemToReduce[2]
-                    )
-            );
-
-            if (enoughItems) {
-                inventory.getProducts().forEach(itemToReduce ->
-                        localInventory.stream().filter(availableItem ->
-                                availableItem[0].equals(itemToReduce[0])
-                        ).findFirst().ifPresent(availableItem -> {
-                            int quantityToReduce = (int) itemToReduce[2];
-                            availableItem[2] = (int) availableItem[2] - quantityToReduce;
-                        })
-                );
-                teamRepository.save(team.get());
-
-                return "OK";
-            } else {
-                return "Not Enough Product";
-            }
-
+        } else {
+            return "Team " + id + " Not Exists";
         }
-        else {
-            return "Team " + id +  " Not Exists";
+    }
+
+    public InventoryEntity sourceEditor(InventoryEntity inventory, double money, int... source){
+        for(int s : source){
+            inventory.setA(s + inventory.getA());
+            inventory.setB(s + inventory.getB());
+            inventory.setC(s + inventory.getC());
+            inventory.setMoney(s + money);
         }
+
+        return inventory;
     }
 
 

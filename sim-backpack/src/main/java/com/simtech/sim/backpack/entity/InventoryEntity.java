@@ -16,7 +16,7 @@ public class InventoryEntity implements Serializable {
 
     private double money;
 
-    private List<Object[]> products;
+    private List<ProductEntity> products;
 
 
 }

@@ -1,35 +1,37 @@
 package com.simtech.sim.calcfileserver.config;
 
+
 import io.minio.MinioClient;
-import jakarta.annotation.Resource;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import io.minio.errors.MinioException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
 /**
- * description: 获取配置文件信息
- *
- * @author: weirx
- * @time: 2021/8/25 9:50
+ * minio 核心配置类
  */
+
 @Configuration
-@EnableConfigurationProperties(MinioPropertiesConfig.class)
 public class MinioConfig {
 
-    @Resource
-    private MinioPropertiesConfig minioPropertiesConfig;
+    @Value("${minio.endpoint}")
+    private String endpoint;
+
+    @Value("${minio.accessKey}")
+    private String accessKey;
+
+    @Value("${minio.secretKey}")
+    private String secretKey;
 
 
-    /**
-     * 初始化 MinIO 客户端
-     */
+
     @Bean
-    public MinioClient minioClient() {
-        MinioClient minioClient = MinioClient.builder()
-                .endpoint(minioPropertiesConfig.getEndpoint())
-                .credentials(minioPropertiesConfig.getAccessKey(), minioPropertiesConfig.getSecretKey())
+    public MinioClient minioClient() throws MinioException {
+        return MinioClient.builder()
+                .endpoint(endpoint)
+                .credentials(accessKey, secretKey)
                 .build();
-        return minioClient;
     }
+
+
 }

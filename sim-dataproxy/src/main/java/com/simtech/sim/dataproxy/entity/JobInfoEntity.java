@@ -19,16 +19,11 @@ public class JobInfoEntity {
     private String jobName;
     private String teamId;
 
+    private String jobInfo;
+
     @Override
     public String toString(){
         return "Job Name " + jobName + " in " + group + " with period " + period;
     }
 
-    public JobInfoEntity transferor(JobInfoTable jobInfoTable, String addStuffId){
-        this.period = jobInfoTable.getJobPeriod();
-        this.group = jobInfoTable.getJobGroup();
-        this.teamId = jobInfoTable.getId();
-
-        return this;
-    }
 }

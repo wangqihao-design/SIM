@@ -3,6 +3,7 @@ package com.simtech.sim.backpack.controller;
 import com.simtech.sim.backpack.dto.CommonDTO;
 import com.simtech.sim.backpack.entity.CommonEntity;
 import com.simtech.sim.backpack.entity.InventoryEntity;
+import com.simtech.sim.backpack.entity.ProductEntity;
 import com.simtech.sim.backpack.entity.TradeEntity;
 import com.simtech.sim.backpack.service.CommonService;
 import com.simtech.sim.common.utils.Result;
@@ -110,7 +111,7 @@ public class CommonController {
     public Result<Double> moneyOperator(@RequestParam String teamId, @RequestParam Double money){
         InventoryEntity inventoryEntity = new InventoryEntity();
         inventoryEntity.setMoney(money);
-        inventoryEntity.setProducts(new ArrayList<Object[]>());
+        inventoryEntity.setProducts(new ArrayList<ProductEntity>());
         commonService.addInventoryToTeam(teamId, inventoryEntity);
 
         return new Result<Double>().ok(money);

@@ -1,40 +1,32 @@
 package com.simtech.sim.calcfileserver.controller;
 
 
-import com.fasterxml.jackson.databind.ser.std.ByteArraySerializer;
-import com.simtech.sim.calcfileserver.service.FileReader;
-import org.apache.tomcat.util.buf.ByteBufferHolder;
+import com.simtech.sim.calcfileserver.util.MinioUtils;
+import com.simtech.sim.calcfileserver.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.codec.ByteBufferDecoder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Base64;
+import java.io.InputStream;
 
 @RestController
-@RequestMapping("/file")
+@RequestMapping("/fileServer")
 public class FileController {
 
     @Autowired
-    private FileReader fileReader;
-
-    @RequestMapping("/retrieveFile")
-    public byte[] retrieve(@RequestParam String name) throws IOException {
-
-        String fileContent = fileReader.getFile(name);
-
-        byte[] encoded = Base64.getEncoder().encode(fileContent.getBytes(StandardCharsets.UTF_8));
-
-        System.out.println(Arrays.toString(encoded));
+    private MinioUtils minioUtils;
 
 
-        return null;
+    @RequestMapping("/uploadFile/{fileCategory}")
+    public Result<String> uploadFile(@RequestBody MultipartFile file, @PathVariable String fileCategory) throws Exception {
+        minioUtils.uploadFile(file, fileCategory);
+
+        return new Result<String>().ok(file.getName());
     }
 
-
+    @RequestMapping("/getFile")
+    public InputStream getFile(@RequestParam String instanceId, @RequestParam String algorithmType){
+        return minioUtils.getObject(algorithmType, instanceId);
+    }
 
 }
