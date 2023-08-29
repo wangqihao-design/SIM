@@ -3,6 +3,9 @@ package com.simtech.sim.dataproxy;
 
 import com.simtech.sim.dataproxy.entity.JobInfoEntity;
 import com.simtech.sim.dataproxy.entity.alg.AlgRequestEntity;
+import com.simtech.sim.dataproxy.entity.db.ProductEntity;
+import com.simtech.sim.dataproxy.service.db.JobInfoStorage;
+import com.simtech.sim.dataproxy.service.db.ProductStorage;
 import com.simtech.sim.dataproxy.service.db.impl.MineStorageImpl;
 import com.simtech.sim.dataproxy.service.sender.AlgSenderProxy;
 import com.simtech.sim.dataproxy.service.sender.QuartzSenderProxy;
@@ -20,7 +23,7 @@ public class SimDataproxyApplicationTests {
     private QuartzSenderProxy<JobInfoEntity> sender;
 
     @Autowired
-    private MineStorageImpl productStorage;
+    private ProductStorage productStorage;
 
     @Autowired
     private AlgSenderProxy algSenderProxy;
@@ -53,6 +56,16 @@ public class SimDataproxyApplicationTests {
         algRequestEntity.setAlgType("researchset");
         algRequestEntity.setInstanceId("hello");
         algSenderProxy.getResult(algRequestEntity);
+    }
+
+    @Test
+    public void databaseTest(){
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setProduct_id("11");
+        productEntity.setStuff_id("m1");
+        productStorage.save(productEntity);
+
+
     }
 
 }

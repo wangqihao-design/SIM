@@ -12,9 +12,7 @@ import reactor.core.publisher.Mono;
 @EnableRabbit
 @SpringBootApplication
 public class MainNodeApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(MainNodeApplication.class, args);
     }
-
 }

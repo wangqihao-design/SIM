@@ -6,6 +6,7 @@ import com.simtech.sim.mainnode.MainNodeApplication;
 import com.simtech.sim.mainnode.config.mq.RabbitMQConnectionPool;
 import com.simtech.sim.mainnode.entity.JobInputInfoEntity;
 import com.simtech.sim.mainnode.service.JobAcceptor;
+import com.simtech.sim.quartzclustercommon.entity.JobInfoEntity;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -14,12 +15,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.reactive.ReactorLoadBalancerExchangeFilterFunction;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.codec.json.Jackson2JsonDecoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -39,14 +43,8 @@ public class JobAcceptorImpl implements JobAcceptor {
     }
 
 
-    private static Logger log = getLogger(MainNodeApplication.class);
+    private static final Logger log = getLogger(MainNodeApplication.class);
 
-    private final List<JobInputInfoEntity> jobInputInfoList = new ArrayList<>();
-
-    @Override
-    public List<JobInputInfoEntity> getCachedJobInfo() {
-        return this.jobInputInfoList;
-    }
 
 
     @RabbitHandler
@@ -65,6 +63,8 @@ public class JobAcceptorImpl implements JobAcceptor {
                 .bodyValue(response)
                 .retrieve().bodyToMono(String.class)
                 .subscribe();
+
+
     }
 
 }

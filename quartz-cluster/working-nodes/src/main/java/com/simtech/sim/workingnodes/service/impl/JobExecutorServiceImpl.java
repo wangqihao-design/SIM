@@ -4,16 +4,17 @@ import com.google.gson.Gson;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
+import com.simtech.sim.quartzclustercommon.entity.SchedulerMetaDataCopier;
 import com.simtech.sim.workingnodes.WorkingNodesApplication;
 import com.simtech.sim.workingnodes.config.mq.RabbitMQConnectionPool;
 import com.simtech.sim.workingnodes.entity.JobInfoEntity;
+import com.simtech.sim.workingnodes.service.JobExecutionMonitor;
 import com.simtech.sim.workingnodes.service.JobExecutorService;
 import lombok.SneakyThrows;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -21,12 +22,12 @@ import java.nio.charset.StandardCharsets;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Service
-public class JobExecutorServiceImpl implements Job, JobExecutorService {
+public class JobExecutorServiceImpl implements Job, JobExecutorService, JobExecutionMonitor {
 
     @Autowired
     private RabbitMQConnectionPool rabbitMQConnectionPool;
 
-    private static Logger log = getLogger(WorkingNodesApplication.class);
+    private static final Logger log = getLogger(WorkingNodesApplication.class);
 
     private final Scheduler scheduler;
 
@@ -85,6 +86,13 @@ public class JobExecutorServiceImpl implements Job, JobExecutorService {
                 .withSchedule(CronScheduleBuilder.cronSchedule(jobInfo.getPeriod()))
                 .build();
 
+
         scheduler.scheduleJob(job, trigger);
+    }
+
+
+    @Override
+    public SchedulerMetaDataCopier getWorkingThread() throws SchedulerException {
+        return scheduler.isStarted() ? new SchedulerMetaDataCopier().copier(scheduler.getMetaData()) : null;
     }
 }
